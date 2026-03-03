@@ -68,7 +68,7 @@ We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship 
 
 ---
 
-## Timeline（6 Steps）
+## Timeline（分成六周吗 老师还没给后期的ddl）
 
 ### Week 1 – Project Setup & Data Acquisition
 - **Tasks:**  
@@ -76,7 +76,7 @@ We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship 
   - Download Traffic Crashes – Crashes and Traffic Crashes – Vehicles datasets  
   - Review data dictionaries and variable definitions  
   - Initialize GitHub repository and set up folder structure  
-- **Estimated Completion:** Week 1, Day 2  
+- **Estimated Completion:** Week 1, Day 2  (这个date要不要这么定？)
 - **Responsible:** Grace & Kristin (shared)
 
 
