@@ -1,4 +1,6 @@
-### Overview
+# Analyzing Factors Associated with Severe Traffic Crashes in Chicago
+
+## Overview
 The goal of our project is to understand what factors are most associated with severe traffic crashes in Chicago. We focus on identifying conditions that lead to crashes involving injuries or fatalities. By analyzing both crash-level and vehicle-level data, we aim to discover patterns that may help explain why some crashes are more severe than others.
 
 We will use two datasets from the City of Chicago Data Portal: **Traffic Crashes – Crashes** and **Traffic Crashes – Vehicles**. These datasets can be linked using the common identifier `CRASH_RECORD_ID`. The crash dataset provides information such as date, weather condition, lighting condition, road surface, and injury severity. The vehicle dataset includes details about vehicle type, driver age, driver action, and contributing factors.
@@ -7,7 +9,7 @@ Our approach includes cleaning both datasets, selecting relevant variables, and 
 
 Through this project, we hope to provide insights that could inform traffic safety policies and prevention strategies in Chicago.
 
-
+--- 
 ## Team Roles and Responsibilities  
 
 ### Grace Qiao – Crash Dataset & Environmental Analysis  
@@ -211,6 +213,4 @@ This project will incorporate:
 - Workflow automation  
 - Reproducibility best practices  
 
-The project plan may evolve as we receive feedback and encounter technical constraints.
-=======
-We will join the two datasets using `CRASH_RECORD_ID`. Since one crash may involve multiple vehicles, this is a one-to-many relationship. After merging, we will create a crash severity indicator (for example, injury or fatal crash) and analyze how vehicle characteristics and environmental factors are associated with crash severity.
+## The project plan may evolve as we receive feedback and encounter technical constraints.
