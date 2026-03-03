@@ -7,6 +7,7 @@ Our approach includes cleaning both datasets, selecting relevant variables, and 
 
 Through this project, we hope to provide insights that could inform traffic safety policies and prevention strategies in Chicago.
 
+<<<<<<< HEAD
 
 ## Team Roles and Responsibilities  
 
@@ -36,17 +37,23 @@ Through this project, we hope to provide insights that could inform traffic safe
 - Perform modeling and interpretation  
 - Implement automated workflow (Snakemake or run-all script)  
 - Write final report and ensure reproducibility  
+=======
+### Team
+>>>>>>> 2ff8df6a247fb74887cc0e38b22d96427e6db41e
 
 ### Research Question
 
 What factors are most associated with severe crashes in Chicago?
 
+<<<<<<< HEAD
 ### Additional sub-RQs  
 
 RQ1: Are environmental conditions (weather, lighting, road surface) significantly associated with crash severity?  
 RQ2: Do certain vehicle types (e.g., motorcycles, trucks) increase the likelihood of severe outcomes?  
 
 
+=======
+>>>>>>> 2ff8df6a247fb74887cc0e38b22d96427e6db41e
 ### Datasets
 
 We will use two datasets from the City of Chicago Data Portal:
@@ -60,6 +67,7 @@ This dataset contains crash-level information for traffic accidents reported in 
 This dataset contains vehicle-level information for each crash. Each row represents one vehicle involved in a crash. It includes variables such as vehicle type, driver age, driver gender, driver action, damage level, and contributing factors. This dataset also contains the `CRASH_RECORD_ID`, which allows us to connect each vehicle to its corresponding crash.
 
 #### Integration Plan
+<<<<<<< HEAD
 We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship is one-to-many:
 
 - We will first clean both datasets separately.  
@@ -226,3 +234,6 @@ This project will incorporate:
 - Reproducibility best practices  
 
 The project plan may evolve as we receive feedback and encounter technical constraints.
+=======
+We will join the two datasets using `CRASH_RECORD_ID`. Since one crash may involve multiple vehicles, this is a one-to-many relationship. After merging, we will create a crash severity indicator (for example, injury or fatal crash) and analyze how vehicle characteristics and environmental factors are associated with crash severity.
+>>>>>>> 2ff8df6a247fb74887cc0e38b22d96427e6db41e
