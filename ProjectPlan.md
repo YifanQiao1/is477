@@ -57,23 +57,14 @@ We will use two datasets from the City of Chicago Data Portal:
 
 1. **Traffic Crashes – Crashes**
 
-This dataset contains crash-level information for traffic accidents reported in Chicago. Each row represents one crash. Important variables include crash date and time, location, weather condition, lighting condition, road surface condition, number of injuries, number of fatalities, and primary contributing cause. The dataset also includes a unique identifier called `CRASH_RECORD_ID`, which allows us to link it to the vehicle-level dataset.
+This dataset contains crash-level information for traffic accidents reported in Chicago. Each row represents one crash. Important variables include crash date and time, location, weather condition, lighting condition, road surface condition, number of injuries, number of fatalities, and primary contributing cause. The dataset includes a unique identifier called `CRASH_RECORD_ID`, which allows us to link it to the vehicle-level dataset.
 
 2. **Traffic Crashes – Vehicles**
 
 This dataset contains vehicle-level information for each crash. Each row represents one vehicle involved in a crash. It includes variables such as vehicle type, driver age, driver gender, driver action, damage level, and contributing factors. This dataset also contains the `CRASH_RECORD_ID`, which allows us to connect each vehicle to its corresponding crash.
 
 ### Integration Plan
-We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship is one-to-many:
-
-- We will first clean both datasets separately.  
-- Then merge them using an inner join.  
-
-We will carefully validate:
-
-- Duplicate crash records  
-- Consistency of severity labels  
-- Row counts before and after merging  
+We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship is one-to-many, we will first clean both datasets separately, then merge them using an inner join. We will carefully validate duplicate crash records, consistency of severity labels, and checj row counts before and after merging  
 
 ---
 
