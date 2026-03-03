@@ -7,7 +7,6 @@ Our approach includes cleaning both datasets, selecting relevant variables, and 
 
 Through this project, we hope to provide insights that could inform traffic safety policies and prevention strategies in Chicago.
 
-<<<<<<< HEAD
 
 ## Team Roles and Responsibilities  
 
@@ -37,24 +36,20 @@ Through this project, we hope to provide insights that could inform traffic safe
 - Perform modeling and interpretation  
 - Implement automated workflow (Snakemake or run-all script)  
 - Write final report and ensure reproducibility  
-=======
-### Team
->>>>>>> 2ff8df6a247fb74887cc0e38b22d96427e6db41e
+---
 
-### Research Question
+## Research Question
 
 What factors are most associated with severe crashes in Chicago?
 
-<<<<<<< HEAD
 ### Additional sub-RQs  
 
 RQ1: Are environmental conditions (weather, lighting, road surface) significantly associated with crash severity?  
 RQ2: Do certain vehicle types (e.g., motorcycles, trucks) increase the likelihood of severe outcomes?  
 
+---
 
-=======
->>>>>>> 2ff8df6a247fb74887cc0e38b22d96427e6db41e
-### Datasets
+## Datasets
 
 We will use two datasets from the City of Chicago Data Portal:
 
@@ -66,8 +61,7 @@ This dataset contains crash-level information for traffic accidents reported in 
 
 This dataset contains vehicle-level information for each crash. Each row represents one vehicle involved in a crash. It includes variables such as vehicle type, driver age, driver gender, driver action, damage level, and contributing factors. This dataset also contains the `CRASH_RECORD_ID`, which allows us to connect each vehicle to its corresponding crash.
 
-#### Integration Plan
-<<<<<<< HEAD
+### Integration Plan
 We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship is one-to-many:
 
 - We will first clean both datasets separately.  
@@ -92,7 +86,6 @@ We will carefully validate:
 - **Estimated Completion:** Week 1, Day 2  
 - **Responsible:** Grace & Kristin (shared)
 
----
 
 ### Week 2 – Data Profiling & Cleaning
 - **Tasks:**  
@@ -106,7 +99,6 @@ We will carefully validate:
   - Kristin – Vehicle-level dataset cleaning  
   - All – Document cleaning process
 
----
 
 ### Week 3 – Data Integration & Feature Engineering
 - **Tasks:**  
@@ -117,7 +109,6 @@ We will carefully validate:
 - **Estimated Completion:** Week 3, Day 2  
 - **Responsible:** All team members
 
----
 
 ### Week 4 – Exploratory Data Analysis
 - **Tasks:**  
@@ -130,7 +121,6 @@ We will carefully validate:
   - Kristin – Driver & vehicle factors  
   - All – Cross-factor analysis
 
----
 
 ### Week 5 – Modeling & Interpretation
 - **Tasks:**  
@@ -141,8 +131,6 @@ We will carefully validate:
 - **Estimated Completion:** Week 5, Day 3  
 - **Responsible:** All team members
 
----
-
 ### Week 6 – Final Report & Workflow Documentation
 - **Tasks:**  
   - Write final report summarizing datasets, methods, findings, and reproducibility steps  
@@ -152,6 +140,7 @@ We will carefully validate:
 - **Estimated Completion:** Week 6, Day 3  
 - **Responsible:** All team members
 
+---
 
 ## Constraints  
 ### Large Dataset Size  
@@ -168,15 +157,11 @@ Mitigation strategies:
 - Optimize data types or columns to reduce memory usage.  
 - Consider chunk-based reading for large files.  
 
----
 
 ### Data Completeness  
 
 - Missing weather or driver information.  
 - Inconsistent categorical coding across years.  
-
----
-
 
 ### Ethical and Legal Considerations  
 
@@ -195,23 +180,17 @@ If raw files exceed GitHub limits:
 - Decide whether to host raw data externally.  （其实我们已经确定了通过LFS上传？）
 - Decide whether to commit only cleaned subsets.  
 
----
-
 ### Aggregation Strategy  
 
 When merging:
-
 - Determine whether analysis should occur at crash-level or vehicle-level.  
 - Decide how to summarize multiple vehicles per crash.  
-
----
 
 ### Modeling Scope  
 
 - Select appropriate statistical models.  
 - Address potential class imbalance if severe crashes are rare.  
 
----
 
 ### Computational Efficiency  
 
@@ -219,7 +198,6 @@ Large merges may require:
 
 - Data type optimization  
 - Efficient join strategy (要不要保留这么多bullet point)
----
 
 
 ## Anticipation of Future Course Topics  
@@ -236,4 +214,3 @@ This project will incorporate:
 The project plan may evolve as we receive feedback and encounter technical constraints.
 =======
 We will join the two datasets using `CRASH_RECORD_ID`. Since one crash may involve multiple vehicles, this is a one-to-many relationship. After merging, we will create a crash severity indicator (for example, injury or fatal crash) and analyze how vehicle characteristics and environmental factors are associated with crash severity.
->>>>>>> 2ff8df6a247fb74887cc0e38b22d96427e6db41e
