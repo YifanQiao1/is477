@@ -19,7 +19,6 @@ Through this project, we hope to provide insights that could inform traffic safe
 - Standardize environmental variables (weather, lighting, road condition)  
 - Create crash severity indicator  
 - Conduct environmental factor analysis  
-- Contribute to documentation and workflow automation  
 
 ### Kristin Dai - Vehicle Dataset & Driver-Level Analysis  
 
@@ -28,15 +27,13 @@ Through this project, we hope to provide insights that could inform traffic safe
 - Standardize driver and vehicle-related variables  
 - Engineer vehicle-related features (vehicle category, driver age groups)  
 - Conduct driver and vehicle factor analysis  
-- Contribute to documentation and workflow automation  
 
 ### Shared Responsibilities  
 
 - Design data storage structure  
-- Merge datasets using `CRASH_RECORD_ID`  
-- Validate integration results  
+- Merge datasets and validate integration results  
 - Perform modeling and interpretation  
-- Implement automated workflow (Snakemake or run-all script)  
+- Implement automated workflow 
 - Write final report and ensure reproducibility  
 ---
 
@@ -44,7 +41,7 @@ Through this project, we hope to provide insights that could inform traffic safe
 
 What factors are most associated with severe crashes in Chicago?
 
-#### Additional sub-RQs  
+#### Sub-RQs  
 
 RQ1: Are environmental conditions (weather, lighting, road surface) significantly associated with crash severity? 
 
@@ -60,12 +57,16 @@ We will use two datasets from the City of Chicago Data Portal:
 
 This dataset contains crash-level information for traffic accidents reported in Chicago. Each row represents one crash. Important variables include crash date and time, location, weather condition, lighting condition, road surface condition, number of injuries, number of fatalities, and primary contributing cause. The dataset includes a unique identifier called `CRASH_RECORD_ID`, which allows us to link it to the vehicle-level dataset.
 
+- **Source:** [Chicago Data Portal - Traffic Crashes - Crashes](https://catalog.data.gov/dataset/traffic-crashes-crashes)
+
 **2. Traffic Crashes - Vehicles**
 
 This dataset contains vehicle-level information for each crash. Each row represents one vehicle involved in a crash. It includes variables such as vehicle type, driver age, driver gender, driver action, damage level, and contributing factors. This dataset also contains the `CRASH_RECORD_ID`, which allows us to connect each vehicle to its corresponding crash.
 
 #### Integration Plan
-We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship is one-to-many, we will first clean both datasets separately, then merge them using an inner join. We will carefully validate duplicate crash records, consistency of severity labels, and checj row counts before and after merging  
+We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship is one-to-many, we will first clean both datasets separately, then merge them using an inner join. We will carefully validate duplicate crash records, consistency of severity labels, and check row counts before and after merging  
+
+- **Source:** [Data.gov - Traffic Crashes - Vehicles](https://catalog.data.gov/dataset/traffic-crashes-vehicles)
 
 ---
 
@@ -76,7 +77,7 @@ We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship 
   - Finalize research question  
   - Download `Traffic Crashes - Crashes` and `Traffic Crashes - Vehicles` datasets  
   - Review data dictionaries and variable definitions  
-  - Initialize GitHub repository and set up folder structure  
+  - Initialize GitHub repository 
 - **Responsible:** All team members
 
 
@@ -85,7 +86,6 @@ We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship 
   - Examine missing values and duplicates in both datasets  
   - Standardize column names and data types  
   - Handle missing or invalid values  
-  - Document cleaning steps for reproducibility   
 - **Responsible:**  
   - Grace - Crash-level dataset cleaning  
   - Kristin - Vehicle-level dataset cleaning  
@@ -105,7 +105,7 @@ We will join the two datasets using `CRASH_RECORD_ID`. Because the relationship 
 - **Tasks:**  
   - Generate summary statistics and frequency tables  
   - Visualize relationships between environmental factors, driver/vehicle characteristics, and crash severity  
-  - Identify patterns and preliminary insights for modeling  
+  - Identify patterns and insights for modeling  
 - **Responsible:**  
   - Grace - Environmental factors  
   - Kristin - Driver & vehicle factors  
