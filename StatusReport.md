@@ -91,15 +91,31 @@ This project aims to analyze the key factors that influence the severity of traf
 
 ## 2.5 Exploratory Data Analysis (EDA)
 
-**Status:** 🔄 In Progress  
+**Status:** ✅ Completed  
 
 **Update:**  
-- Generated initial visualizations:
-  - crash severity distribution  
-  - vehicle type vs severity  
-  - time-of-day trends  
-- Identified preliminary patterns (e.g., higher severity at night)  
+- Generated multiple visualizations to explore crash severity patterns:
+  - Crash severity distribution  
+  - Vehicle type vs severity  
+  - Time-of-day trends  
+  - Lighting condition vs severity  
+  - Weather condition vs severity  
+  - Primary contributory cause vs severity  
+  - Correlation matrix for key numerical variables  
 
+- Identified several key patterns:
+  - Crash severity is higher during late night and early morning hours  
+  - Certain vehicle types (e.g., passenger vehicles, vans) show higher severity rates  
+  - Poor lighting and adverse weather conditions are associated with increased severity  
+  - Human factors (e.g., following too closely, failing to yield) are strongly linked to severe crashes  
+  - Strong correlation between total injuries and severe crash label confirms validity of target variable  
+
+**Insights:**  
+Crash severity is influenced by a combination of environmental conditions, vehicle characteristics, and driver behavior. Also, the relatively weak linear correlations for some variables indicate that we might need some complex models to capture nonlinear relationships.
+
+**Artifacts:**  
+- EDA notebook: `EDA.ipynb`  
+- Visualizations embedded in notebook  
 
 ---
 
@@ -126,7 +142,7 @@ This project aims to analyze the key factors that influence the severity of traf
 | Week 3 | Data cleaning | ✅ Done | Minor missing value issues |
 | Week 4 | Data merging | ✅ Done | Successfully linked datasets |
 | Week 5 | Feature engineering | ✅ Done | Added features into the dataset |
-| Week 6 | EDA | 🔄 In Progress | Initial plots completed |
+| Week 6 | EDA | ✅ Done | Key patterns identified |
 | Week 7 | Modeling | ⏳ Planned | |
 | Week 8 | Final report & GitHub release | ⏳ Planned | |
 
@@ -181,9 +197,9 @@ Too many variables made analysis complex
 
 ## Grace Qiao
 
-- Implemented data cleaning pipeline for both datasets
+- Implemented data cleaning pipeline for both datasets  
 - Processed raw datasets and handled missing values  
-- Contributed to EDA analysis  
+- Conducted exploratory data analysis, generating visualizations on crash severity distribution, temporal trends, vehicle types, environmental conditions, and contributory causes  
 
 ---
 
@@ -192,6 +208,7 @@ Too many variables made analysis complex
 - Created merged dataset  
 - Developed feature engineering logic  
 - Contributed to EDA analysis
+- Identified key patterns in EDA to support feature selection and modeling decisions  
 
 ---
 
@@ -207,13 +224,13 @@ Too many variables made analysis complex
 
 # 8. Next Steps
 
-- Finalize data visulization
-- Finalize EDA insights  
-- Train and evaluate models  
+- Train baseline models (Logistic Regression, Random Forest)  
+- Evaluate model performance using accuracy, F1-score, and ROC-AUC  
+- Perform feature importance analysis  
 - Prepare final report and presentation  
 
 ---
 
 # 9. Conclusion
 
-So far, the project is progressing as expected. We have successfully completed data collection, cleaning, integration, and feature engineering, and are currently working on visulization and exploratory analysis. The next phase will focus on modeling and deriving actionable insights from the data.
+So far, the project is progressing as expected. We have successfully completed data collection, cleaning, integration, feature engineering, and exploratory data analysis. The EDA results revealed meaningful patterns related to crash severity, which will directly inform the modeling phase. The next stage will focus on building predictive models and identifying the most important factors contributing to severe crashes.
