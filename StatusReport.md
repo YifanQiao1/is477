@@ -28,7 +28,6 @@ This project aims to analyze the key factors that influence the severity of traf
 
 **Artifacts:**  
 - Dataset files: `Traffic_Crashes_-_Crashes.csv`  `Traffic_Crashes_-_Vehicles.csv`
-- Data dictionary notes: `路径`  
 
 ---
 
@@ -54,12 +53,11 @@ This project aims to analyze the key factors that influence the severity of traf
 **Status:** ✅ Completed  
 
 **Update:**  
-- Successfully merged crash-level and vehicle-level datasets using `CRASH_RECORD_ID`  
-- Verified merge correctness and removed duplicate entries  
-
-**Artifacts:**  
-- Merge script: `/s`  
-- Merged dataset: `/da`  
+- Merged vehicle-level and crash-level datasets using `crash_record_id` with a left join
+- Verified row count remained consistent with vehicle dataset (382,862 rows)
+- Checked for duplicates (none found)
+- Identified unmatched records: ~40,809 rows (20,656 unique crash IDs) in vehicle dataset had no corresponding crash-level data
+- Observed missing values in crash-related columns due to incomplete overlap between datasets
 
 ---
 
@@ -68,18 +66,26 @@ This project aims to analyze the key factors that influence the severity of traf
 **Status:** ✅ Completed 
 
 **Update:**  
-- Created severity indicator (binary classification: injury/fatal vs non-injury)  
-- Extracted time-based features:
-  - hour of crash  
-  - day of week  
-- Started categorizing environmental factors  
+- Created crash severity indicator (`severe_crash`) based on injury/fatal conditions
+- Generated vehicle-related features:
+  - `vehicle_age` (crash year − vehicle year)
+  - `passenger_group` (grouped number of passengers)
+  - `vehicle_type_group` (simplified vehicle categories)
+- Extracted and used existing time-based features:
+  - crash hour
+  - crash weekday
+- Reviewed missing values and confirmed they are either from original vehicle data or caused by unmatched merge
+
 
 **Next Steps:**  
-- Finalize feature transformations  
-- Encode categorical variables  
+- Handle missing values (especially vehicle_year and num_passengers)
+- Finalize feature transformations
+- Encode categorical variables for modeling
+
 
 **Artifacts:**  
-- Feature engineering script: `/scripts/feature_engineering.py`  
+- Merged dataset: `merged_data.csv`
+- Merging script: `merge_code.ipynb`
 
 ---
 
@@ -94,9 +100,6 @@ This project aims to analyze the key factors that influence the severity of traf
   - time-of-day trends  
 - Identified preliminary patterns (e.g., higher severity at night)  
 
-**Artifacts:**  
-- EDA notebook: `/notebooks/EDA.ipynb`  
-- Visualizations: `/outputs/figures/`  
 
 ---
 
@@ -122,7 +125,7 @@ This project aims to analyze the key factors that influence the severity of traf
 | Week 1–2 | Data collection & understanding | ✅ Done | Completed as planned |
 | Week 3 | Data cleaning | ✅ Done | Minor missing value issues |
 | Week 4 | Data merging | ✅ Done | Successfully linked datasets |
-| Week 5 | Feature engineering | 🔄 In Progress | Will finalize soon |
+| Week 5 | Feature engineering | ✅ Done | Added features into the dataset |
 | Week 6 | EDA | 🔄 In Progress | Initial plots completed |
 | Week 7 | Modeling | ⏳ Planned | |
 | Week 8 | Final report & GitHub release | ⏳ Planned | |
@@ -188,7 +191,7 @@ Too many variables made analysis complex
 
 - Created merged dataset  
 - Developed feature engineering logic  
-- Generated initial visualizations  
+- Contributed to EDA analysis
 
 ---
 
@@ -198,14 +201,13 @@ Too many variables made analysis complex
 - Repository includes:
   - Raw and processed datasets  
   - Scripts for cleaning, merging, and feature engineering  
-  - EDA notebooks  
-- Created release: **status-report**
+
 
 ---
 
 # 8. Next Steps
 
-- Complete feature engineering  
+- Finalize data visulization
 - Finalize EDA insights  
 - Train and evaluate models  
 - Prepare final report and presentation  
@@ -214,4 +216,4 @@ Too many variables made analysis complex
 
 # 9. Conclusion
 
-So far, the project is progressing as expected. We have successfully completed data collection, cleaning, and integration, and are currently working on feature engineering and exploratory analysis. The next phase will focus on modeling and deriving actionable insights from the data.
+So far, the project is progressing as expected. We have successfully completed data collection, cleaning, integration, and feature engineering, and are currently working on visulization and exploratory analysis. The next phase will focus on modeling and deriving actionable insights from the data.
