@@ -1,5 +1,5 @@
 # 🚗 Traffic Crash Severity Analysis  
-## Milestone 3: Interim Status Report  
+## Milestone 3: Status Report  
 
 **Team Members:**  
 - Grace Qiao
@@ -27,7 +27,7 @@ This project aims to analyze the key factors that influence the severity of traf
 - Reviewed dataset schema and selected relevant variables  
 
 **Artifacts:**  
-- Dataset files: `路径`  
+- Dataset files: `Traffic_Crashes_-_Crashes.csv`  `Traffic_Crashes_-_Vehicles.csv`
 - Data dictionary notes: `路径`  
 
 ---
@@ -41,13 +41,11 @@ This project aims to analyze the key factors that influence the severity of traf
 - Standardized column formats (dates, categorical values)  
 - Selected relevant variables such as:
   - vehicle_type  
-  - maneuver  
   - occupant_cnt  
-  - crash_date  
 
 **Artifacts:**  
-- Cleaning script: `/s.py`  
-- Clean dataset: `/da.csv`  
+- Cleaning script: `clean_crash_code.ipynb`  `clean_vehicle_code.ipynb`  
+- Clean dataset: `crash_cleaned.csv`  `vehicle_cleaned.csv`  
 
 ---
 
@@ -67,7 +65,7 @@ This project aims to analyze the key factors that influence the severity of traf
 
 ## 2.4 Feature Engineering
 
-**Status:** 🔄 In Progress (Week 5)  
+**Status:** ✅ Completed 
 
 **Update:**  
 - Created severity indicator (binary classification: injury/fatal vs non-injury)  
@@ -136,7 +134,6 @@ This project aims to analyze the key factors that influence the severity of traf
 Compared to our original proposal, we made the following adjustments:
 
 - Simplified feature set to focus on the most relevant variables (to reduce noise)
-- 多写几行
 - 
 
 **Reason for Changes:**  
@@ -181,19 +178,17 @@ Too many variables made analysis complex
 
 ## Grace Qiao
 
-- Implemented data cleaning pipeline  
+- Implemented data cleaning pipeline for both datasets
 - Processed raw datasets and handled missing values  
-- Created merged dataset  
 - Contributed to EDA analysis  
 
 ---
 
 ## Kristin Dai
 
-- Assisted with data preprocessing  
+- Created merged dataset  
 - Developed feature engineering logic  
 - Generated initial visualizations  
-- Helped refine project direction  
 
 ---
 
