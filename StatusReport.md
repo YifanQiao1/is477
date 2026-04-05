@@ -207,7 +207,6 @@ Too many variables made analysis complex
 
 - Created merged dataset  
 - Developed feature engineering logic  
-- Contributed to EDA analysis
 - Identified key patterns in EDA to support feature selection and modeling decisions  
 
 ---
