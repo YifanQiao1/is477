@@ -94,7 +94,7 @@ This project aims to analyze the key factors that influence the severity of traf
 **Status:** ✅ Completed  
 
 **Update:**  
-- Generated multiple visualizations to explore crash severity patterns:
+- Generated some visualizations to explore crash severity patterns:
   - Crash severity distribution  
   - Vehicle type vs severity  
   - Time-of-day trends  
@@ -103,7 +103,7 @@ This project aims to analyze the key factors that influence the severity of traf
   - Primary contributory cause vs severity  
   - Correlation matrix for key numerical variables  
 
-- Identified several key patterns:
+- Identified:
   - Crash severity is higher during late night and early morning hours  
   - Certain vehicle types (e.g., passenger vehicles, vans) show higher severity rates  
   - Poor lighting and adverse weather conditions are associated with increased severity  
@@ -138,11 +138,11 @@ Crash severity is influenced by a combination of environmental conditions, vehic
 
 | Week | Task | Status | Notes |
 |------|------|--------|------|
-| Week 1–2 | Data collection & understanding | ✅ Done | Completed as planned |
-| Week 3 | Data cleaning | ✅ Done | Minor missing value issues |
-| Week 4 | Data merging | ✅ Done | Successfully linked datasets |
+| Week 1–2 | Data collection & understanding | ✅ Done | Data collected |
+| Week 3 | Data cleaning | ✅ Done | Cleaned missing values |
+| Week 4 | Data merging | ✅ Done | Merged two datasets |
 | Week 5 | Feature engineering | ✅ Done | Added features into the dataset |
-| Week 6 | EDA | ✅ Done | Key patterns identified |
+| Week 6 | EDA | ✅ Done | Identified key patterns |
 | Week 7 | Modeling | ⏳ Planned | |
 | Week 8 | Final report & GitHub release | ⏳ Planned | |
 
