@@ -1,10 +1,9 @@
-# Title
+# IS477 Final Project Report
 Traffic Crash Severity Analysis and Data Integration Project
 
 ## Contributors
 - Grace Qiao
-- [Teammate Name]
-- [Teammate Name]
+- Kristin Dai
 
 ## Summary
 This project investigates traffic crash patterns and crash severity by integrating two complementary datasets: a crash-level dataset and a vehicle-level dataset. The motivation for this project is to better understand how environmental conditions, roadway context, and vehicle-related attributes are associated with severe crashes. Traffic safety is an important public issue, and integrated crash data can support more informed analysis of risk factors and possible prevention strategies.
