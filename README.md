@@ -49,7 +49,7 @@ A third issue was the different granularity of the two datasets. The crash datas
 
 A fourth quality issue was linkage completeness. Before the final correction, a left join kept vehicle records that did not match the cleaned crash dataset, which created missing crash-level information. This was not appropriate for modeling because unmatched rows could be incorrectly treated as non-severe. The final version uses an inner join, which retained only rows with valid matches in both datasets. The final merge produced 1,581,057 rows with zero missing values for key crash-level variables such as `crash_year`, `crash_month`, `crash_hour`, `weather_condition`, `lighting_condition`, `first_crash_type`, `prim_contributory_cause`, and `severe_crash`.
 
-Finally, there was a risk of data leakage in the modeling stage. Since `severe_crash` is derived from injury-related fields, the model should not use `most_severe_injury`, `injuries_total`, `injuries_fatal`, or `injury_level` as predictors. These fields directly encode the target outcome. The modeling script explicitly drops these leakage columns before training. This improves the validity of the evaluation and ensures that the model is not simply learning from variables that directly define the target.
+Finally, there was a risk of data leakage in the modeling stage. Since `severe_crash` is derived from injury-related fields, the model should not use `most_severe_injury`, `injuries_total`, `injuries_fatal`, or `injury_level` as predictors. These fields directly encode the target outcome. The modeling script explicitly drops these leakage columns before training. This improves the validity of the evaluation and ensures that the model is not simply learning from variables that directly influence the target.
 
 Overall, the datasets were rich and appropriate for the research questions, but they required systematic cleaning, careful integration, and transparent documentation before they could be used reliably.
 
@@ -200,7 +200,7 @@ The repository contains the raw data files, cleaned outputs, scripts, documentat
 
 The raw datasets used in this project are public government datasets accessed through Data.gov and the City of Chicago open data system. The project cites the original data sources in the references section. The analysis does not attempt to identify individuals and is presented only in aggregate form.
 
-The repository includes `requirements.txt` to document software dependencies and `data_dictionary.md` to document variables and derived fields. These files support reproducibility and reuse. If a separate license file is included in the repository, it applies to the code and documentation created for this project, not to the original raw datasets, which remain governed by the original provider terms.
+The repository includes `requirements.txt` to document software dependencies and `data_dictionary.md` to document variables and derived fields, which support reproducibility and reuse. 
 
 ---
 
