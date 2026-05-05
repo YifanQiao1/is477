@@ -7,9 +7,9 @@ Kristin Dai
 
 ## Summary
 
-This project investigates traffic crash severity by integrating two complementary public datasets from the City of Chicago: the Traffic Crashes - Crashes dataset and the Traffic Crashes - Vehicles dataset. The project was designed as a data curation and reproducible analysis workflow. Rather than analyzing crash records alone, we aimed to combine crash-level information with vehicle-level information to better understand what conditions and vehicle characteristics are associated with severe crashes.
+This project investigates traffic crash severity by integrating two public datasets from the City of Chicago: the Traffic Crashes - Crashes dataset and the Traffic Crashes - Vehicles dataset. The project was designed as a data curation and reproducible analysis workflow. Rather than analyzing crash records alone, we aimed to combine crash-level information with vehicle-level information to better understand what conditions and vehicle characteristics are associated with severe crashes.
 
-The main motivation for this project is that traffic crashes are an important public safety issue, but raw administrative datasets are often difficult to use directly. They contain missing values, inconsistent categorical fields, multiple levels of granularity, and many columns that are not equally useful for analysis. A crash-level dataset can describe the overall event, such as weather, lighting, road surface condition, crash type, contributory cause, and injury outcome. However, it does not fully explain the role of individual vehicles involved in the crash. A vehicle-level dataset adds information such as vehicle type, vehicle year, vehicle use, maneuver, travel direction, occupant count, and first contact point. By integrating these two sources, we can produce a more complete research object for studying crash severity.
+The main motivation for this project is that traffic crashes are an important public safety issue, but raw administrative datasets are often difficult to use directly. They contain missing values, inconsistent categorical fields, multiple levels of granularity, and many columns that are not equally useful for analysis. A crash-level dataset can describe the overall event, such as weather, lighting, road surface condition, crash type, contributory cause, and injury outcome. However, it does not fully explain the role of individual vehicles involved in the crash. A vehicle-level dataset adds information such as vehicle type, vehicle year, vehicle use, maneuver, travel direction, occupant count, and first contact point. By integrating these two sources, we can produce a more complete dataset for studying crash severity.
 
 Our research questions are: What environmental, roadway, temporal, and vehicle-related factors are associated with severe crashes? How does combining crash-level and vehicle-level data improve the analysis compared with using only one dataset? Can a reproducible workflow be created to clean, integrate, analyze, and model traffic crash severity from raw public datasets?
 
@@ -19,15 +19,32 @@ The final integrated dataset, `merged_data.csv`, contains 1,581,057 rows after i
 
 The modeling step trained Logistic Regression and Random Forest classifiers to predict the binary target variable `severe_crash`. Logistic Regression achieved an accuracy of approximately 0.734 and ROC-AUC of approximately 0.789. Random Forest achieved an accuracy of approximately 0.721 and ROC-AUC of approximately 0.802. Because severe crashes are less frequent than non-severe crashes, ROC-AUC, average precision, and severe-class recall were considered more informative than accuracy alone. The project demonstrates that careful data curation, integration, and documentation are necessary for producing a reproducible and meaningful analysis from raw public safety data.
 
+## Data Access
+
+The raw datasets used in this project are publicly available from Data.gov:
+
+- Traffic Crashes - Crashes  
+  https://catalog.data.gov/dataset/traffic-crashes-crashes  
+
+- Traffic Crashes - Vehicles  
+  https://catalog.data.gov/dataset/traffic-crashes-vehicles  
+
+For reproducibility, copies of these datasets are included in this Github repository as:
+
+- `Traffic_Crashes_-_Crashes.csv`
+- `Traffic_Crashes_-_Vehicles.csv`
+
+These files are used directly by the workflow and do not require additional downloading.
+
 ## Data Profile
 
 This project uses two datasets from Data.gov and the City of Chicago open data system. The two datasets are complementary because one describes crashes at the event level and the other describes vehicles or units involved in those crashes. The shared linkage field is `crash_record_id`, which allows vehicle-level rows to be connected to crash-level context.
 
-The first dataset is Traffic Crashes - Crashes. The raw file in this repository is named `Traffic_Crashes_-_Crashes.csv`, and the cleaned output is named `crash_cleaned.csv`. The source link is: https://catalog.data.gov/dataset/traffic-crashes-crashes. This dataset contains one row per crash event. Its structure is event-level, meaning each record describes the overall crash rather than a specific vehicle. Important variables include `crash_record_id`, `crash_date`, `weather_condition`, `lighting_condition`, `roadway_surface_cond`, `posted_speed_limit`, `traffic_control_device`, `trafficway_type`, `first_crash_type`, `prim_contributory_cause`, `num_units`, `most_severe_injury`, `injuries_total`, and `injuries_fatal`. These variables describe when the crash happened, what road and weather conditions were present, what type of crash occurred, what likely contributed to the crash, and whether injuries or fatalities occurred.
+The first dataset is Traffic Crashes - Crashes. The raw file in this repository is named `Traffic_Crashes_-_Crashes.csv`, and the cleaned output is named `crash_cleaned.csv`. This dataset contains one row per crash event. Its structure is event-level, meaning each record describes the overall crash rather than a specific vehicle. Important variables include `crash_record_id`, `crash_date`, `weather_condition`, `lighting_condition`, `roadway_surface_cond`, `posted_speed_limit`, `traffic_control_device`, `trafficway_type`, `first_crash_type`, `prim_contributory_cause`, `num_units`, `most_severe_injury`, `injuries_total`, and `injuries_fatal`. These variables describe when the crash happened, what road and weather conditions were present, what type of crash occurred, what likely contributed to the crash, and whether injuries or fatalities occurred.
 
 The crash dataset is central to the project because it provides the outcome variable used for analysis and modeling. In the cleaned crash data, we created `severe_crash`, a binary variable indicating whether a crash involved injury or fatality according to the cleaned injury fields. We also derived temporal features such as `crash_year`, `crash_month`, `crash_hour`, `crash_weekday`, and `is_weekend`. These derived fields make it easier to analyze crash patterns across time.
 
-The second dataset is Traffic Crashes - Vehicles. The raw file in this repository is named `Traffic_Crashes_-_Vehicles.csv`, and the cleaned output is named `vehicle_cleaned.csv`. The source link is: https://catalog.data.gov/dataset/traffic-crashes-vehicles. This dataset contains one row per vehicle or unit involved in a crash. Its structure is vehicle-level rather than crash-level, so multiple rows may correspond to the same crash. Important variables include `crash_unit_id`, `crash_record_id`, `unit_no`, `num_passengers`, `unit_type`, `vehicle_id`, `vehicle_year`, `vehicle_type`, `vehicle_category`, `vehicle_use`, `travel_direction`, `maneuver`, `occupant_cnt`, and `first_contact_point`.
+The second dataset is Traffic Crashes - Vehicles. The raw file in this repository is named `Traffic_Crashes_-_Vehicles.csv`, and the cleaned output is named `vehicle_cleaned.csv`. This dataset contains one row per vehicle or unit involved in a crash. Its structure is vehicle-level rather than crash-level, so multiple rows may correspond to the same crash. Important variables include `crash_unit_id`, `crash_record_id`, `unit_no`, `num_passengers`, `unit_type`, `vehicle_id`, `vehicle_year`, `vehicle_type`, `vehicle_category`, `vehicle_use`, `travel_direction`, `maneuver`, `occupant_cnt`, and `first_contact_point`.
 
 The vehicle dataset complements the crash dataset by adding information about the units involved in each crash. For example, the crash dataset may show that a crash occurred during a particular lighting condition or due to a particular contributory cause, but the vehicle dataset can show whether the involved unit was a passenger vehicle, truck, bus, motorcycle, bicycle, or other vehicle category. It also provides information about vehicle age, movement, and occupancy, which are relevant for understanding crash outcomes.
 
@@ -73,7 +90,7 @@ The modeling script, `modeling.py`, includes additional cleaning decisions speci
 
 ## Findings
 
-The analysis produced both exploratory findings and modeling results. All plots and model output files are stored in the `figures/` folder.
+The analysis include both exploratory findings and modeling results. All plots and model output files are stored in the `figures/` folder.
 
 The exploratory analysis shows that crash severity is not evenly distributed across conditions. Severe crashes account for a minority of cases, approximately 15% of the final merged records. This means the project involves an imbalanced classification problem. A naïve model could achieve relatively high accuracy by predicting most crashes as non-severe, so severity analysis must consider precision, recall, ROC-AUC, and average precision in addition to accuracy.
 
@@ -95,13 +112,11 @@ Future work could improve this project in several directions. The first directio
 
 A second direction is improving the modeling process. This project uses Logistic Regression and Random Forest as baseline models. Future work could compare additional models such as gradient boosting, XGBoost, LightGBM, or calibrated classifiers. Hyperparameter tuning could also be added using cross-validation. Since severe crashes are relatively rare, future modeling should also test methods designed for imbalanced data, such as threshold tuning, class weighting, resampling, or cost-sensitive evaluation.
 
-A third direction is improving interpretability. Random Forest feature importance provides a basic way to understand which variables are influential, but it is limited. Future work could use permutation importance or SHAP values to better explain how specific features contribute to predicted severity. This would be especially useful if the project were used for policy or public safety discussions.
+Third, we can improve the workflow and provenance documentation. The current project includes a reproducible shell workflow through `run_all.sh`, but future versions could use a more formal workflow manager such as Snakemake. This would make dependencies between steps more explicit and allow partial reruns when only one input changes. The project could also include checksums for raw files to verify data integrity.
 
-A fourth direction is improving the workflow and provenance documentation. The current project includes a reproducible shell workflow through `run_all.sh`, but future versions could use a more formal workflow manager such as Snakemake. This would make dependencies between steps more explicit and allow partial reruns when only one input changes. The project could also include checksums for raw files to verify data integrity.
+Fourth, we may expand the documentation and metadata. This repository includes `data_dictionary.md` and `requirements.txt`, but future work could add more complete machine-readable metadata. This would improve FAIR compliance by making the project easier to find, understand, and reuse.
 
-A fifth direction is expanding the documentation and metadata. This repository includes `data_dictionary.md` and `requirements.txt`, but future work could add more complete machine-readable metadata using a standard such as DataCite, DCAT, or Schema.org. This would improve FAIR compliance by making the project easier to find, understand, and reuse.
-
-Finally, future work should continue to consider ethical limitations. Traffic crash data are public, but they reflect real incidents and may contain reporting inconsistencies. Patterns in the data may reflect enforcement practices, reporting practices, infrastructure inequality, or missing context rather than purely behavioral causes. Any policy conclusions should therefore be made carefully and supported by additional domain knowledge.
+Finally, future work should consider further ethical limitations. Traffic crash data are public, but they reflect real incidents and may contain reporting inconsistencies. Patterns in the data may reflect enforcement practices, reporting practices, infrastructure inequality, or missing context rather than purely behavioral causes. 
 
 ## Challenges
 
@@ -109,11 +124,9 @@ One major challenge was integrating datasets with different levels of granularit
 
 Another challenge was missing and sparse data. Several columns in the vehicle dataset contained more than 90% missing or unknown values. Keeping these columns would make the dataset larger but not more useful. We therefore assessed missingness and removed high-missingness fields. At the same time, not all missing values could be removed because doing so would discard too many records. For example, `num_passengers` and `vehicle_year` still contain missing values in the final merged data. These fields were retained because they provide useful information when available, and the modeling pipeline handles missing numeric values through imputation.
 
-A third challenge was avoiding data leakage during modeling. Since `severe_crash` is derived from injury-related fields, including `most_severe_injury`, `injuries_total`, `injuries_fatal`, or `injury_level` as predictors would make the model evaluation invalid. The final modeling script explicitly removes these leakage fields before training. We also used group-based splitting by `crash_record_id` to avoid placing vehicles from the same crash in both the training and test sets.
+The third challenge was making the project reproducible. Earlier versions of the project used Jupyter notebooks, which are useful for exploration but can make automated reproduction harder. To address this, the final project includes Python scripts for each step and a shell script, `run_all.sh`, that executes the complete workflow from cleaning through modeling. This makes it easier for another user or TA to reproduce the project from the repository.
 
-A fourth challenge was making the project reproducible. Earlier versions of the project used Jupyter notebooks, which are useful for exploration but can make automated reproduction harder. To address this, the final project includes Python scripts for each step and a shell script, `run_all.sh`, that executes the complete workflow from cleaning through modeling. This makes it easier for another user or TA to reproduce the project from the repository.
-
-A final challenge was balancing detail and clarity in the final repository. The project includes raw data, cleaned data, merged data, scripts, visualizations, modeling results, dependencies, and documentation. Organizing these artifacts clearly was necessary so that the repository could be understood and evaluated. The final README, data dictionary, and workflow instructions are intended to make each step transparent.
+A final challenge was balancing detail and clarity in the final repository. The project includes raw data, cleaned data, merged data, scripts, visualizations, modeling results, dependencies, and documentation. Organizing these artifacts clearly was necessary so that the repository could be understood and evaluated. We created the final README, data dictionary, and workflow instructions to make each step transparent.
 
 ## Reproducing
 
