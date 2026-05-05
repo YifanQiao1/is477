@@ -1,19 +1,21 @@
 #!/usr/bin/env python
 # coding: utf-8
+
 """
 clean_vehicle_code.py
 ---------------------
-Step 1 of the data management pipeline.
 Reads raw vehicle crash data, selects relevant columns, cleans and standardizes
-values, removes low-quality rows, and saves the result to vehicle_cleaned.csv.
+values, removes low-quality rows and low-information columns, and saves the
+final result to vehicle_cleaned.csv.
 """
 
 import pandas as pd
 import numpy as np
 
+
 # ── Load raw vehicle data ──────────────────────────────────────────────────────
 
-vehicle_file = "Traffic_Crashes_-_Vehicles.csv"   # 改成你的路径
+vehicle_file = "Traffic_Crashes_-_Vehicles.csv"
 
 vehicle_keep_cols = [
     "CRASH_UNIT_ID",
@@ -38,16 +40,17 @@ vehicle_keep_cols = [
     "VEHICLE_CONFIG",
     "CARGO_BODY_TYPE",
     "LOAD_TYPE",
-    "HAZMAT_CLASS"
+    "HAZMAT_CLASS",
 ]
 
 vehicle = pd.read_csv(
     vehicle_file,
     usecols=lambda c: c in vehicle_keep_cols,
-    low_memory=False
+    low_memory=False,
 )
 
 print("Original vehicle shape:", vehicle.shape)
+
 
 # ── Basic cleaning ─────────────────────────────────────────────────────────────
 
@@ -62,6 +65,7 @@ vehicle = vehicle[vehicle["crash_date"] >= pd.Timestamp("2018-01-01")].copy()
 
 vehicle = vehicle.drop_duplicates(subset=["crash_unit_id"])
 
+
 # ── Numeric columns ────────────────────────────────────────────────────────────
 
 numeric_cols = [
@@ -69,13 +73,18 @@ numeric_cols = [
     "num_passengers",
     "vehicle_id",
     "vehicle_year",
-    "occupant_cnt"
+    "occupant_cnt",
 ]
 
 for col in numeric_cols:
-    vehicle[col] = pd.to_numeric(vehicle[col], errors="coerce")
+    if col in vehicle.columns:
+        vehicle[col] = pd.to_numeric(vehicle[col], errors="coerce")
 
-vehicle.loc[(vehicle["vehicle_year"] < 1900) | (vehicle["vehicle_year"] > 2026), "vehicle_year"] = np.nan
+vehicle.loc[
+    (vehicle["vehicle_year"] < 1900) | (vehicle["vehicle_year"] > 2026),
+    "vehicle_year",
+] = np.nan
+
 
 # ── Categorical columns ────────────────────────────────────────────────────────
 
@@ -94,26 +103,29 @@ cat_cols = [
     "vehicle_config",
     "cargo_body_type",
     "load_type",
-    "hazmat_class"
+    "hazmat_class",
 ]
 
 for col in cat_cols:
-    vehicle[col] = (
-        vehicle[col]
-        .astype("string")
-        .str.strip()
-        .str.upper()
-    )
+    if col in vehicle.columns:
+        vehicle[col] = (
+            vehicle[col]
+            .astype("string")
+            .str.strip()
+            .str.upper()
+        )
 
 replace_map = {
     "": pd.NA,
     "UNKNOWN": pd.NA,
     "UNABLE TO DETERMINE": pd.NA,
-    "NOT APPLICABLE": pd.NA
+    "NOT APPLICABLE": pd.NA,
 }
 
 for col in cat_cols:
-    vehicle[col] = vehicle[col].replace(replace_map)
+    if col in vehicle.columns:
+        vehicle[col] = vehicle[col].replace(replace_map)
+
 
 # ── Y/N binary columns → 1/0 ──────────────────────────────────────────────────
 
@@ -121,22 +133,31 @@ yn_cols = [
     "cmrc_veh_i",
     "towed_i",
     "fire_i",
-    "exceed_speed_limit_i"
+    "exceed_speed_limit_i",
 ]
 
 for col in yn_cols:
-    vehicle[col] = vehicle[col].map({"Y": 1, "N": 0}).astype("Int64")
+    if col in vehicle.columns:
+        vehicle[col] = vehicle[col].map({"Y": 1, "N": 0}).astype("Int64")
+
 
 # ── Vehicle type simplification ────────────────────────────────────────────────
 
 def simplify_vehicle_type(x):
     if pd.isna(x):
         return "UNKNOWN"
-    x = str(x)
+
+    x = str(x).upper()
 
     if "MOTORCYCLE" in x or "MOPED" in x or "MOTOR SCOOTER" in x:
         return "MOTORCYCLE"
-    elif "PICKUP" in x or "VAN" in x or "SUV" in x or "PASSENGER" in x or "AUTOMOBILE" in x:
+    elif (
+        "PICKUP" in x
+        or "VAN" in x
+        or "SUV" in x
+        or "PASSENGER" in x
+        or "AUTOMOBILE" in x
+    ):
         return "PASSENGER_VEHICLE"
     elif "BUS" in x:
         return "BUS"
@@ -149,9 +170,11 @@ def simplify_vehicle_type(x):
     else:
         return "OTHER"
 
+
 vehicle["vehicle_category"] = vehicle["vehicle_type"].apply(simplify_vehicle_type)
 
-# ── Fill remaining NaN with "UNKNOWN" ─────────────────────────────────────────
+
+# ── Fill selected categorical missing values ───────────────────────────────────
 
 fill_unknown_cols = [
     "vehicle_type",
@@ -163,23 +186,28 @@ fill_unknown_cols = [
     "vehicle_config",
     "cargo_body_type",
     "load_type",
-    "hazmat_class"
+    "hazmat_class",
+    "travel_direction",
+    "unit_type",
 ]
 
 for col in fill_unknown_cols:
-    vehicle[col] = vehicle[col].fillna("UNKNOWN")
+    if col in vehicle.columns:
+        vehicle[col] = vehicle[col].fillna("UNKNOWN")
+
 
 # ── Drop rows with no useful signal ───────────────────────────────────────────
 
 weak_info_mask = (
-    vehicle["vehicle_type"].eq("UNKNOWN") &
-    vehicle["maneuver"].eq("UNKNOWN") &
-    vehicle["vehicle_use"].eq("UNKNOWN")
+    vehicle["vehicle_type"].eq("UNKNOWN")
+    & vehicle["maneuver"].eq("UNKNOWN")
+    & vehicle["vehicle_use"].eq("UNKNOWN")
 )
 
 vehicle = vehicle.loc[~weak_info_mask].copy()
 
-# ── Select final columns and save ─────────────────────────────────────────────
+
+# ── Select analysis columns ────────────────────────────────────────────────────
 
 final_cols = [
     "crash_unit_id",
@@ -205,59 +233,55 @@ final_cols = [
     "vehicle_config",
     "cargo_body_type",
     "load_type",
-    "hazmat_class"
+    "hazmat_class",
 ]
 
-vehicle_analysis = vehicle[final_cols].copy()
+vehicle_analysis = vehicle[[c for c in final_cols if c in vehicle.columns]].copy()
 
-print("Analysis-ready vehicle shape:", vehicle_analysis.shape)
-print(vehicle_analysis.head())
+print("Analysis-ready vehicle shape before column reduction:", vehicle_analysis.shape)
 
-vehicle_analysis.to_csv("vehicle_cleaned.csv", index=False)
-print("\nSaved: vehicle_cleaned.csv")
 
-# ── Drop columns with >90% UNKNOWN or NaN ─────────────────────────────────────
+# ── Drop high-missing / low-information columns ────────────────────────────────
 
-# 计算每一列 UNKNOWN 或 NaN 比例
 missing_ratio = (
-    vehicle_analysis.isna().mean() +
-    (vehicle_analysis == "UNKNOWN").mean()
+    vehicle_analysis.isna().mean()
+    + (vehicle_analysis == "UNKNOWN").mean(numeric_only=False)
 )
 
 missing_ratio = missing_ratio.sort_values(ascending=False)
 
+print("\nTop missing/UNKNOWN ratios:")
 print(missing_ratio.head(20))
 
-# 删除 UNKNOWN/NaN 比例 > 0.9 的列
-cols_to_drop = missing_ratio[missing_ratio > 0.9].index.tolist()
-
-print("Dropping columns:", cols_to_drop)
-
-vehicle_reduced = vehicle_analysis.drop(columns=cols_to_drop)
-
-print("New shape:", vehicle_reduced.shape)
-
-# ── Manual drop of additional low-value columns ────────────────────────────────
+auto_drop_cols = missing_ratio[missing_ratio > 0.9].index.tolist()
 
 manual_drop = [
-    "cmrc_veh_i",          # 商业标识，没用
-    "towed_i",             # 很 sparse
-    "fire_i",              # 极少发生
-    "vehicle_config",      # 过细
+    "cmrc_veh_i",
+    "towed_i",
+    "fire_i",
+    "vehicle_config",
     "cargo_body_type",
     "load_type",
     "hazmat_class",
-    "vehicle_defect"       # 大量 UNKNOWN + 噪音
+    "vehicle_defect",
+    "exceed_speed_limit_i",
 ]
 
-vehicle_reduced = vehicle_reduced.drop(
-    columns=[c for c in manual_drop if c in vehicle_reduced.columns]
+cols_to_drop = sorted(set(auto_drop_cols + manual_drop))
+
+vehicle_reduced = vehicle_analysis.drop(
+    columns=[c for c in cols_to_drop if c in vehicle_analysis.columns]
 )
 
-# ── Verification: reload saved CSV ────────────────────────────────────────────
+print("\nDropping columns:", [c for c in cols_to_drop if c in vehicle_analysis.columns])
+print("Final cleaned vehicle shape:", vehicle_reduced.shape)
+print(vehicle_reduced.head())
 
-vehicle_file1 = "vehicle_cleaned.csv"
-vehicle1 = pd.read_csv(
-    vehicle_file1
-)
-vehicle1
+
+# ── Save final cleaned vehicle dataset ─────────────────────────────────────────
+
+vehicle_reduced.to_csv("vehicle_cleaned.csv", index=False)
+
+print("\nSaved final cleaned vehicle file: vehicle_cleaned.csv")
+print("Final columns:")
+print(vehicle_reduced.columns.tolist())

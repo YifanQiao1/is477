@@ -57,6 +57,8 @@ identifier_or_high_cardinality_cols = [
     "vehicle_id",
     "crash_date_x",
     "crash_date_y",
+    "crash_date_vehicle",
+    "crash_date_crash",
 ]
 
 drop_cols = [
@@ -141,11 +143,13 @@ models = {
             (
                 "clf",
                 RandomForestClassifier(
-                    n_estimators=100,
-                    random_state=RANDOM_STATE,
-                    n_jobs=-1,
-                    class_weight="balanced",
-                ),
+    n_estimators=50,
+    max_depth=12,
+    min_samples_leaf=20,
+    random_state=RANDOM_STATE,
+    n_jobs=-1,
+    class_weight="balanced",
+),
             ),
         ]
     ),
@@ -295,3 +299,30 @@ save_precision_recall_curve_plot(model_results)
 save_random_forest_feature_importance_plot(model_results["Random Forest"]["model"])
 
 print(f"\nSaved model visualizations to: {FIGURES_DIR.resolve()}")
+
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+metrics_rows = []
+
+for model_name, result in model_results.items():
+    pred = result["pred"]
+    proba = result["proba"]
+
+    metrics_rows.append({
+        "model": model_name,
+        "accuracy": accuracy_score(y_test, pred),
+        "precision": precision_score(y_test, pred, zero_division=0),
+        "recall": recall_score(y_test, pred, zero_division=0),
+        "f1": f1_score(y_test, pred, zero_division=0),
+        "roc_auc": result["roc_auc"],
+        "average_precision": result["average_precision"],
+        "test_positive_rate": y_test.mean(),
+        "n_train": len(y_train),
+        "n_test": len(y_test),
+    })
+
+metrics_df = pd.DataFrame(metrics_rows)
+metrics_df.to_csv(FIGURES_DIR / "model_metrics.csv", index=False)
+
+print("\nSaved model metrics to:", FIGURES_DIR / "model_metrics.csv")
+print(metrics_df)
