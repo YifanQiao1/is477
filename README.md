@@ -205,7 +205,7 @@ The repository contains the raw data files, cleaned outputs, scripts, documentat
 
 **Grace Qiao** contributed to data cleaning, data processing, exploratory data analysis, workflow automation, and final documentation. This included preparing the cleaned crash and vehicle files, creating the data visualizations, and creating the reproducible shell workflow, and contributing to the final report structure.
 
-**Kristin Dai** contributed to project planning, research question development, data profiling, data quality discussion, documentation review, and interpretation of findings. This included helping evaluate the relevance of the datasets, identifying data quality issues, updating the merge logic to use valid matched records, developing the modeling script, and contributing to the final report.
+**Kristin Dai** contributed to project planning, research question development, data profiling, data modeling, data quality discussion, documentation review, and interpretation of findings. This included helping evaluate the relevance of the datasets, identifying data quality issues, updating the merge logic to use valid matched records, developing the modeling script, and contributing to the final report.
 
 ---
 
